@@ -56,13 +56,12 @@ Le détail pas à pas est dans `PLAN_DE_MONTAGE.md`.
 
 ## Utilisation (tout au doigt)
 
-- **Onglets en haut** : TOUS, 1 (Yasser), 2 (Hanane), 3 (Rayane).
-- **Flèches** à droite : faire défiler. **Toucher une ligne** : détails en bas.
-- **Actu** (en bas à droite) : actualiser tout de suite.
-- **Menu** (trois traits en haut à droite) : Réglages (relier un compte, calibrer, tout oublier).
-- **Icône WiFi** : vert = tout va bien, jaune = données un peu anciennes, rouge = pas de WiFi.
-- **Point de couleur** à gauche de chaque ligne : à qui appartient l'événement.
-- **Veille (facultatif)** : brancher BL sur GPIO 27 et mettre `PIN_BL = 27` dans le code. L'écran s'éteint après 2 minutes, un toucher le rallume.
+- **Vue Équipe** (accueil) : 3 cartes (Yasser, Hanane, Rayane) avec statut Teams en couleur (Disponible, Occupé, En réunion, Absent, Hors ligne) et prochain rendez-vous. Toucher une carte ouvre son agenda.
+- **Barre d'onglets en bas** : Équipe, Tous, puis un onglet par personne.
+- **Flèches** : faire défiler (4 lignes visibles). **Toucher une ligne** : écran de détail (titre complet sur plusieurs lignes, horaires, lieu), toucher pour revenir.
+- **En-tête** : nom/statut, heure, Actu (actualiser), icône WiFi (vert OK, jaune données anciennes, rouge pas de WiFi), menu Réglages.
+- **Réglages** : relier un compte, calibrer, tout oublier.
+- **Veille (facultatif)** : BL sur GPIO 27 et `PIN_BL = 27` ; écran éteint après 2 min, un toucher le rallume.
 
 ## En cas de problème
 
@@ -77,9 +76,11 @@ Le détail pas à pas est dans `PLAN_DE_MONTAGE.md`.
 | Agenda vide | Créer un événement dans les 14 prochains jours |
 | Un compte redemande un code | Normal si Microsoft a révoqué l'accès : saisir le nouveau code |
 
-## Pour la présence Teams (facultatif)
+## Présence Teams
 
-Elle ne fonctionne qu'avec un compte professionnel ou scolaire (par exemple ECE). Il faut ajouter la permission `Presence.Read` dans Azure, puis mettre `true` pour ce compte dans `PRESENCE`.
+- Dans Azure > API autorisées > Microsoft Graph > Délégué : ajouter **Presence.Read** (en plus de Calendars.Read, offline_access, User.Read).
+- Lors du code de connexion, le statut Teams réel est lu toutes les minutes. Il ne marche qu'avec un compte **professionnel/scolaire** (ex. ECE) ; l'organisation peut exiger un consentement administrateur.
+- Compte personnel ou permission refusée : bouton **Sans Teams** à l'écran du code ; le statut est alors déduit de l'agenda (« En réunion » / « Libre »).
 
 ## Où est quoi dans le code ?
 
